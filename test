@@ -1,0 +1,54 @@
+#! /bin/bash
+#
+# Start the server
+ echo "Start the server"
+ ./hash &
+
+# wait a bit for start
+sleep 1
+
+#
+# Send some requests sequentially (but not quite simultaneously)
+echo "Send a few requests"
+curl -d "password=angryMonkey" http://localhost:8080/hash
+curl -d "password=password1" http://localhost:8080/hash
+curl -d "password=password2" http://localhost:8080/hash
+curl -d "password=password3" http://localhost:8080/hash
+curl -d "password=password4" http://localhost:8080/hash
+curl -d "password=password5" http://localhost:8080/hash
+curl -d "password=password6" http://localhost:8080/hash
+curl -d "password=password7" http://localhost:8080/hash
+curl -d "password=password8" http://localhost:8080/hash
+curl -d "password=password9" http://localhost:8080/hash
+curl -d "password=password10" http://localhost:8080/hash
+#
+# Get the hash result for the first request
+echo "Wait for the first result..."
+while true
+ do
+    result=`curl -s http://localhost:8080/hash/0`
+    if [[ $result != "" ]]
+    then
+        break;
+    fi
+done
+
+echo "Result $result"
+
+if [[ $result == "ZEHhWB65gUlzdVwtDQArEyx+KVLzp/aTaRaPlBzYRIFj6vjFdqEb0Q5B8zVKCZ0vKbZPZklJz0Fd7su2A+gf7Q==" ]]
+then
+    echo "Result OK"
+else
+    echo "FAILED!"
+fi
+
+# wait a bit
+sleep 2
+
+# Get the stats
+stats=`curl -s http://localhost:8080/stats`
+echo "Stats - $stats"
+
+
+# Shutdown
+curl http://localhost:8080/shutdown
