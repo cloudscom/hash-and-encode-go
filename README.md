@@ -11,4 +11,4 @@ A short test script is included to start the webserver and compute a few hashes.
 # Running
 Only standard Go libraries and a Go runtime environment are required.
 Build the executable in the usual way - 'go build'
-Execute the test - './test'
+Execute the test - 'sh test' or make *test* executable and './test'
