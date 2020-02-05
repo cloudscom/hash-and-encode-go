@@ -2,7 +2,7 @@
 #
 # Start the server
  echo "Start the server"
- ./hash &
+ ./hash-and-encode-go &
 
 # wait a bit for start
 sleep 1
