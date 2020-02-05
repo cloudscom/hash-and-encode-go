@@ -1,0 +1,1 @@
+# hash-and-encode-go
